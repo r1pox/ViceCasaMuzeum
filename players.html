@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зал славы | Vice City & Casa-Grande</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body class="hall-of-fame-page">
+    <header>
+        <div class="logo">
+            <h1><span>Vice City</span> & Casa-Grande</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="simkart.html">Симкарты</a></li>
+                <li><a href="players.html" class="active">Зал славы</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Зал славы</h2>
+        </section>
+
+        <div class="players-grid">
+            <!-- Игрок 1 -->
+            <div class="player-card">
+                <div class="player-avatar">
+                    <img src="https://i.imgur.com/GAGV31j.jpeg" alt="BeLuga_ViceCity">
+                </div>
+                <h3 class="player-name">BeLuga_ViceCity</h3>
+            </div>
+
+            <!-- Игрок 2 -->
+            <div class="player-card">
+                <div class="player-avatar">
+                    <img src="https://i.imgur.com/GAGV31j.jpeg" alt="Carl_Johnson">
+                </div>
+                <h3 class="player-name">Carl_Johnson</h3>
+            </div>
+
+            <!-- Игрок 3 -->
+            <div class="player-card">
+                <div class="player-avatar">
+                    <img src="https://i.imgur.com/MdSY8fN.jpeg" alt="Bibon_Covalli">
+                </div>
+                <h3 class="player-name">Bibon_Covalli</h3>
+            </div>
+
+            <!-- Игрок 4 -->
+            <div class="player-card">
+                <div class="player-avatar">
+                    <img src="https://iv.kommersant.ru/Issues.photo/NEWS/2024/02/26/KMO_096855_35357_1_t222_142328.jpg" alt="Nikita_Gasparov">
+                </div>
+                <h3 class="player-name">Nikita_Gasparov</h3>
+            </div>
+            
+            <!-- Добавьте больше игроков по такому же шаблону -->
+        </div>
+    </main>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background: #1a1a1a;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        nav a.active {
+            color: #d4af37;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+        
+        .player-card {
+            text-align: center;
+        }
+        
+        .player-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+            border: 3px solid #d4af37;
+        }
+        
+        .player-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .player-name {
+            margin-top: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</body>
+</html>
