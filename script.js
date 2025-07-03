@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Preloader
     const preloader = document.querySelector('.preloader');
     if (preloader) {
         setTimeout(() => {
@@ -10,61 +9,43 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     }
 
-    // Server tabs functionality
     const serverTabButtons = document.querySelectorAll('.server-tab-button');
     const serverTabContents = document.querySelectorAll('.server-tab-content');
 
     serverTabButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Remove active class from all buttons and contents
             serverTabButtons.forEach(btn => btn.classList.remove('active'));
             serverTabContents.forEach(content => content.classList.remove('active'));
-            
-            // Add active class to clicked button
             button.classList.add('active');
-            
-            // Show corresponding content
             const server = button.getAttribute('data-server');
             document.getElementById(`${server}-content`).classList.add('active');
         });
     });
 
-    // Number tabs functionality
     function setupNumberTabs(container) {
         const numberTabButtons = container.querySelectorAll('.number-tab-button');
         const numberTabContents = container.querySelectorAll('.number-tab-content');
 
         numberTabButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons and contents in this container
                 numberTabButtons.forEach(btn => btn.classList.remove('active'));
                 numberTabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked button
                 button.classList.add('active');
-                
-                // Show corresponding content
                 const tab = button.getAttribute('data-tab');
                 container.querySelector(`#${container.id}-${tab}`).classList.add('active');
             });
         });
     }
 
-    // Initialize number tabs for all containers
     document.querySelectorAll('.number-content').forEach(setupNumberTabs);
-
-    // Animate elements
     const simkartFrames = document.querySelectorAll('.simkart-frame');
     if (simkartFrames.length > 0) {
         animateElements(simkartFrames);
     }
-
     const playerCards = document.querySelectorAll('.player-card');
     if (playerCards.length > 0) {
         animateElements(playerCards);
     }
-
-    // Other existing functionality
     const parallaxLayers = document.querySelectorAll('.parallax-layer');
     if (parallaxLayers.length > 0) {
         initParallaxEffect(parallaxLayers);
