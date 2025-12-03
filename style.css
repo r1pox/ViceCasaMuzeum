@@ -1,3 +1,939 @@
+style.css :root {
+  --bg-dark: #121212;
+  --bg-darker: #0a0a0a;
+  --primary: #d4af37;
+  --primary-dark: #b5952e;
+  --primary-light: rgba(212, 175, 55, 0.1);
+  --text: #e0e0e0;
+  --text-light: #f5f5f5;
+  --text-dark: #b0b0b0;
+  --card-bg: #1e1e1e;
+  --card-border: #333;
+  --accent: #8b7355;
+  --platinum: #e5e4e2;
+  --silver: #c0c0c0;
+  --bronze: #cd7f32;
+  --success: #2ecc71;
+  --error: #e74c3c;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-darker);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 5px solid var(--primary-light);
+  border-radius: 50%;
+  border-top-color: var(--primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Header Styles */
+header {
+  background: linear-gradient(135deg, var(--bg-darker), #1a1a1a);
+  color: var(--text-light);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 1px;
+  background: linear-gradient(to right, var(--primary), #f5d742);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo p {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 1.5rem;
+}
+
+nav ul li a {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav ul li a:hover, 
+nav ul li a.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+nav ul li a i {
+  font-size: 1.1rem;
+}
+
+/* Main Content Styles */
+main {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+}
+
+/* Hero Sections */
+.hero {
+  text-align: center;
+  padding: 6rem 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+              url('https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+  color: var(--text-light);
+  border-radius: 10px;
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1), transparent 70%);
+}
+
+.hero h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
+  position: relative;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: var(--text-light);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  background: var(--primary);
+  color: #121212;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.btn-secondary {
+  background: var(--primary-light);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  box-shadow: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+/* Section Styles */
+.section-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.section-header h3 {
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-header h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+.divider {
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary), transparent);
+  margin: 1.5rem auto;
+  max-width: 200px;
+}
+
+/* Features */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 5rem 0;
+}
+
+.feature-card {
+  background: var(--card-bg);
+  padding: 2.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: all 0.4s ease;
+  border: 1px solid var(--card-border);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+}
+
+.icon-circle {
+  width: 90px;
+  height: 90px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2.2rem;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.feature-card h4 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+  font-size: 1.4rem;
+}
+
+.feature-card p {
+  color: var(--text-dark);
+  font-size: 1rem;
+}
+
+/* Simkart Page Specific Styles */
+.simkart-page {
+  background-color: var(--bg-darker);
+}
+
+.simkart-hero {
+  text-align: center;
+  padding: 5rem 0;
+  margin-bottom: 2rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+  border-radius: 10px;
+  position: relative;
+}
+
+.simkart-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 50%, var(--primary-light), transparent 70%);
+}
+
+.simkart-hero h2 {
+  font-size: 3rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.simkart-hero p {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Server Tabs */
+.server-tabs {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.server-tab-button {
+  padding: 0.9rem 2.5rem;
+  background: none;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-dark);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--card-border);
+}
+
+.server-tab-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.server-tab-button:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.server-tab-button:hover::before {
+  left: 100%;
+}
+
+.server-tab-button.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.server-tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.server-tab-content.active {
+  display: block;
+}
+
+/* Number Tabs */
+.number-tabs {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.number-tab-button {
+  padding: 0.8rem 1.8rem;
+  background: none;
+  border: 2px solid var(--card-border);
+  border-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.number-tab-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+  transition: 0.5s;
+}
+
+.number-tab-button:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.number-tab-button:hover::after {
+  left: 100%;
+}
+
+.number-tab-button.active {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.number-tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+
+.number-tab-content.active {
+  display: block;
+}
+
+/* Simkart Grid */
+.simkart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 1.5rem;
+}
+
+.simkart-frame {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.simkart-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.simkart-frame:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  border-color: var(--primary);
+}
+
+.simkart-frame:hover::before {
+  transform: scaleX(1);
+}
+
+.simkart-number {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.simkart-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  color: var(--text-light);
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
+
+.simkart-frame:hover .simkart-number {
+  transform: scale(1.05);
+}
+
+.simkart-frame:hover .simkart-name {
+  color: var(--primary);
+}
+
+/* Number Colors */
+.gold { 
+  color: var(--primary);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), transparent);
+}
+
+.silver { 
+  color: var(--silver);
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.15), transparent);
+}
+
+.bronze { 
+  color: var(--bronze);
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.15), transparent);
+}
+
+.platinum { 
+  color: var(--platinum);
+  background: linear-gradient(135deg, rgba(229, 228, 226, 0.15), transparent);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Museum Plaque */
+.museum-plaque {
+  background: var(--primary);
+  color: #121212;
+  padding: 10px 25px;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 25px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Hall of Fame Page */
+.hall-of-fame-page .hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+}
+
+.players-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.player-categories {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 0.8rem 1.8rem;
+  background: none;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.category-btn:hover, 
+.category-btn.active {
+  background: var(--primary);
+  color: #121212;
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.player-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--card-border);
+}
+
+.player-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary);
+}
+
+.player-avatar {
+  height: 250px;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.player-card:hover .avatar-img {
+  transform: scale(1.05);
+}
+
+.player-info {
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+.player-name {
+  font-family: 'Playfair Display', serif;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.player-title {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.player-description {
+  margin-bottom: 2rem;
+  color: var(--text-dark);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.player-stats {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+.player-stats span {
+  display: flex;
+  align-items: center;
+}
+
+.player-stats i {
+  margin-right: 0.5rem;
+  color: var(--primary);
+}
+
+/* Suggestions Form */
+.suggestions {
+  background: var(--card-bg);
+  padding: 4rem 2rem;
+  margin-top: 4rem;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+}
+
+.suggestion-form {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.suggestion-form textarea {
+  width: 100%;
+  height: 180px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  resize: vertical;
+  background: #1a1a1a;
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.suggestion-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+#form-message {
+  margin-top: 1rem;
+  padding: 0.8rem;
+  border-radius: 5px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+#form-message.success {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+#form-message.error {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+/* Footer */
+footer {
+  background: var(--bg-darker);
+  color: var(--text-dark);
+  padding: 3rem 0;
+  margin-top: 5rem;
+  border-top: 1px solid var(--card-border);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footer-section h5 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  color: var(--text-light);
+}
+
+.footer-section p {
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 3rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--card-border);
+  font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .hero h2 {
+    font-size: 3rem;
+  }
+  
+  .section-header h3 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero {
+    padding: 5rem 0;
+  }
+  
+  .hero h2 {
+    font-size: 2.5rem;
+  }
+  
+  .simkart-grid, .players-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  nav ul {
+    margin-top: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  nav ul li {
+    margin: 0.5rem;
+  }
+  
+  .hero {
+    padding: 4rem 1rem;
+  }
+  
+  .hero h2 {
+    font-size: 2.2rem;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .section-header h3 {
+    font-size: 2rem;
+  }
+  
+  .features {
+    grid-template-columns: 1fr;
+  }
+  
+  .server-tabs, .number-tabs, .player-categories {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .server-tab-button, .number-tab-button, .category-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h2 {
+    font-size: 2rem;
+  }
+  
+  .section-header h3 {
+    font-size: 1.8rem;
+  }
+  
+  .simkart-grid, .players-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .simkart-hero {
+    padding: 3rem 1rem;
+  }
+  
+  .simkart-hero h2 {
+    font-size: 2.2rem;
+  }
+}
+
 /* Door Entry Styles */
 .door-entry {
     position: fixed;
