@@ -9,45 +9,82 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="preloader">
+    <div class="door-entry">
+        <div class="door-overlay">
+            <div class="door-container">
+                <div class="door-frame">
+                    <div class="door-left">
+                        <div class="door-texture"></div>
+                        <div class="door-knob left-knob">
+                            <div class="knob"></div>
+                        </div>
+                        <div class="door-glow"></div>
+                    </div>
+                    <div class="door-right">
+                        <div class="door-texture"></div>
+                        <div class="door-knob right-knob">
+                            <div class="knob"></div>
+                        </div>
+                        <div class="door-glow"></div>
+                    </div>
+                </div>
+                <div class="door-handle">
+                    <div class="handle-bar"></div>
+                    <div class="handle-text">НАЖМИ, ЧТОБЫ ВОЙТИ</div>
+                </div>
+                <div class="museum-title">
+                    <h1><span>Vice City</span> & Casa-Grande</h1>
+                    <p class="museum-subtitle">ИСТОРИЧЕСКИЙ МУЗЕЙ</p>
+                </div>
+                <div class="entrance-effect">
+                    <div class="light-beam"></div>
+                    <div class="light-particles"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="preloader" style="display: none;">
         <div class="loader"></div>
     </div>
-    <header>
-        <div class="logo">
-            <h1><span>Vice City</span> & Casa-Grande</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="simkart.html"><i class="fas fa-id-card"></i> Симкарты</a></li>
-                <li><a href="players.html"><i class="fas fa-trophy"></i> Зал славы</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h2>Добро пожаловать в музей</h2>
-                <p>Храним память о легендарных серверах Vice City и Casa-Grande</p>
+    <div class="main-content" style="display: none;">
+        <header>
+            <div class="logo">
+                <h1><span>Vice City</span> & Casa-Grande</h1>
             </div>
-        </section>
-        <section class="features">
-            <div class="feature-card">
-                <div class="icon-circle">
-                    <i class="fas fa-id-card"></i>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="simkart.html"><i class="fas fa-id-card"></i> Симкарты</a></li>
+                    <li><a href="players.html"><i class="fas fa-trophy"></i> Зал славы</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>Добро пожаловать в музей</h2>
+                    <p>Храним память о легендарных серверах Vice City и Casa-Grande</p>
                 </div>
-                <h4>Симкарты</h4>
-                <p>Коллекция легендарных номеров</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-circle">
-                    <i class="fas fa-trophy"></i>
+            </section>
+            <section class="features">
+                <div class="feature-card">
+                    <div class="icon-circle">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h4>Симкарты</h4>
+                    <p>Коллекция легендарных номеров</p>
                 </div>
-                <h4>Зал славы</h4>
-                <p>Лучшие игроки серверов</p>
-            </div>
-        </section>
-    </main>
+                <div class="feature-card">
+                    <div class="icon-circle">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h4>Зал славы</h4>
+                    <p>Лучшие игроки серверов</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
