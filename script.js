@@ -1,14 +1,39 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Элементы двери
     const doorEntry = document.querySelector('.door-entry');
     const doorFrame = document.querySelector('.door-frame');
-    const doorLeft = document.querySelector('.door-left');
-    const doorRight = document.querySelector('.door-right');
     const mainContent = document.querySelector('.main-content');
     const preloader = document.querySelector('.preloader');
 
-    // Инициализация прелоадера
-    if (preloader) {
-        preloader.style.display = 'none';
+    // Модальное окно
+    const modal = document.getElementById('developmentModal');
+    const modalCloseButtons = modal.querySelectorAll('.modal-close, .modal-btn');
+    const disabledCards = document.querySelectorAll('.disabled-card');
+
+    // Инициализация
+    function init() {
+        // Скрываем основной контент изначально
+        mainContent.style.display = 'none';
+        
+        // Показываем прелоадер
+        preloader.style.display = 'flex';
+        
+        // Устанавливаем обработчики событий
+        setupDoor();
+        setupModal();
+        setupDisabledCards();
+    }
+
+    // Настройка двери
+    function setupDoor() {
+        doorFrame.addEventListener('click', openDoor);
+        
+        // Также можно открывать дверь по нажатию любой клавиши
+        document.addEventListener('keydown', function(e) {
+            if (doorEntry.style.display !== 'none') {
+                openDoor();
+            }
+        });
     }
 
     // Функция открытия двери
@@ -23,44 +48,68 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             doorEntry.style.opacity = '0';
             
-            // Показываем прелоадер
-            if (preloader) {
-                preloader.style.display = 'flex';
-                setTimeout(() => {
-                    preloader.style.opacity = '1';
-                }, 10);
-            }
-            
             // Через 0.5 секунды скрываем дверь и показываем контент
             setTimeout(() => {
                 doorEntry.style.display = 'none';
                 
                 // Показываем основной контент
                 mainContent.style.display = 'block';
-                setTimeout(() => {
-                    mainContent.classList.add('fade-in');
-                }, 10);
                 
                 // Скрываем прелоадер
                 setTimeout(() => {
-                    if (preloader) {
-                        preloader.style.opacity = '0';
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        
+                        // Анимируем появление контента
                         setTimeout(() => {
-                            preloader.style.display = 'none';
-                        }, 500);
-                    }
+                            mainContent.style.opacity = '1';
+                        }, 100);
+                    }, 500);
                 }, 1000);
             }, 500);
         }, 1200);
     }
 
-    // Функция для воспроизведения звука (опционально)
-    function playDoorSound() {
-        // Можно добавить реальный звук, например:
-        // const audio = new Audio('door-open.mp3');
-        // audio.play();
+    // Настройка модального окна
+    function setupModal() {
+        modalCloseButtons.forEach(button => {
+            button.addEventListener('click', closeModal);
+        });
         
-        // Создаём простой звуковой эффект с помощью Web Audio API
+        // Закрытие по клику на фон
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Показ модального окна
+    function showModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Закрытие модального окна
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Настройка отключенных карточек
+    function setupDisabledCards() {
+        disabledCards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                showModal();
+            });
+        });
+    }
+
+    // Функция для воспроизведения звука
+    function playDoorSound() {
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
@@ -83,355 +132,81 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Обработчик клика на дверь
-    doorFrame.addEventListener('click', openDoor);
-    
-    // Также можно открывать дверь по нажатию любой клавиши
-    document.addEventListener('keydown', function(e) {
-        if (!doorEntry.classList.contains('door-opening')) {
-            openDoor();
-        }
-    });
-
-    // Анимация свечения при загрузке
-    setTimeout(() => {
-        doorFrame.classList.add('loaded');
-    }, 500);
-
-    // Остальной существующий код...
-    const serverTabButtons = document.querySelectorAll('.server-tab-button');
-    const serverTabContents = document.querySelectorAll('.server-tab-content');
-
-    if (serverTabButtons.length > 0) {
-        serverTabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                serverTabButtons.forEach(btn => btn.classList.remove('active'));
-                serverTabContents.forEach(content => content.classList.remove('active'));
-                button.classList.add('active');
-                const server = button.getAttribute('data-server');
-                document.getElementById(`${server}-content`).classList.add('active');
-            });
+    // Инициализация анимированных иконок
+    function initFloatingIcons() {
+        const icons = document.querySelectorAll('.floating-icon');
+        icons.forEach((icon, index) => {
+            icon.style.animationDelay = `${index * 2}s`;
         });
     }
 
-    function setupNumberTabs(container) {
-        const numberTabButtons = container.querySelectorAll('.number-tab-button');
-        const numberTabContents = container.querySelectorAll('.number-tab-content');
-
-        numberTabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                numberTabButtons.forEach(btn => btn.classList.remove('active'));
-                numberTabContents.forEach(content => content.classList.remove('active'));
-                button.classList.add('active');
-                const tab = button.getAttribute('data-tab');
-                container.querySelector(`#${container.id}-${tab}`).classList.add('active');
-            });
-        });
-    }
-
-    document.querySelectorAll('.number-content').forEach(setupNumberTabs);
-    
-    const simkartFrames = document.querySelectorAll('.simkart-frame');
-    if (simkartFrames.length > 0) {
-        animateElements(simkartFrames);
-    }
-    
-    const playerCards = document.querySelectorAll('.player-card');
-    if (playerCards.length > 0) {
-        animateElements(playerCards);
-    }
-    
-    const parallaxLayers = document.querySelectorAll('.parallax-layer');
-    if (parallaxLayers.length > 0) {
-        initParallaxEffect(parallaxLayers);
-    }
-
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    if (categoryBtns.length > 0) {
-        initCategoryFilter(categoryBtns);
-    }
-
-    const suggestionForm = document.querySelector('.suggestion-form');
-    if (suggestionForm) {
-        initSuggestionForm();
-    }
-});
-
-// Остальные функции остаются без изменений...
-function animateElements(elements) {
-    setTimeout(() => {
-        elements.forEach((element, index) => {
+    // Анимация появления карточек
+    function animateCards() {
+        const cards = document.querySelectorAll('.grid-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            
             setTimeout(() => {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, index * 100);
+                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 300 + (index * 100));
         });
-    }, 500);
-}
+    }
 
-function initParallaxEffect(layers) {
+    // Инициализация при загрузке
+    init();
+    initFloatingIcons();
+
+    // Анимация карточек после загрузки контента
+    setTimeout(animateCards, 1500);
+
+    // Эффект параллакса для фона
     window.addEventListener('mousemove', function(e) {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-    
-        layers.forEach(layer => {
-            const speed = parseFloat(layer.getAttribute('data-speed'));
-            const xPos = x * speed * 100;
-            const yPos = y * speed * 100;
-            
-            layer.style.transform = `translate(${xPos}px, ${yPos}px)`;
-        });
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        
+        const particles = document.querySelector('.particles');
+        if (particles) {
+            particles.style.transform = `translate(${x}px, ${y}px)`;
+        }
     });
-}
 
-function initCategoryFilter(buttons) {
-    buttons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const category = this.getAttribute('data-category');
-            buttons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            const playerCards = document.querySelectorAll('.player-card');
-            playerCards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
+    // Анимация для статистики в футере
+    function animateStats() {
+        const stats = document.querySelectorAll('.stat-number');
+        stats.forEach(stat => {
+            const target = parseInt(stat.textContent);
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    stat.textContent = target + '+';
+                    clearInterval(timer);
                 } else {
-                    card.style.display = 'none';
+                    stat.textContent = Math.floor(current) + '+';
                 }
-            });
+            }, 30);
         });
-    });
-}
+    }
 
-function initSuggestionForm() {
-    const sendBtn = document.getElementById('send-suggestion');
-    const textarea = document.getElementById('suggestion-text');
-    const messageDiv = document.getElementById('form-message');
+    // Запуск анимации статистики
+    setTimeout(animateStats, 2000);
 
-    sendBtn.addEventListener('click', async function(e) {
-        e.preventDefault();
-        
-        const suggestion = textarea.value.trim();
-        
-        if (!suggestion) {
-            showMessage('Пожалуйста, введите ваше предложение', 'error');
-            return;
-        }
-        try {
-            sendBtn.disabled = true;
-            sendBtn.textContent = 'Отправка...';
+    // Анимация свечения при наведении на карточки
+    const gridCards = document.querySelectorAll('.grid-card:not(.disabled-card)');
+    gridCards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             
-            const response = await sendToDiscord(suggestion);
-            
-            if (response.ok) {
-                showMessage('Спасибо! Ваше предложение отправлено', 'success');
-                textarea.value = '';
-            } else {
-                throw new Error('Ошибка при отправке');
+            const glow = this.querySelector('.card-glow');
+            if (glow) {
+                glow.style.background = `radial-gradient(circle at ${x}px ${y}px, transparent 30%, var(--primary-glow) 70%, transparent 100%)`;
             }
-        } catch (error) {
-            console.error('Ошибка:', error);
-            showMessage('Произошла ошибка при отправке', 'error');
-        } finally {
-            sendBtn.disabled = false;
-            sendBtn.textContent = 'Отправить предложение';
-        }
-    });
-    
-    function showMessage(text, type) {
-        messageDiv.textContent = text;
-        messageDiv.className = type;
-        
-        setTimeout(() => {
-            messageDiv.textContent = '';
-            messageDiv.className = '';
-        }, 5000);
-    }
-}
-
-async function sendToDiscord(message) {
-    const webhookURL = 'https://discordapp.com/api/webhooks/1389177650714509422/CJUn9REtbc9GFzfWfquRMdVjth6bMANtLWi1Rf-x8Aax6cW_fpB68Mbh5TF7wmIW8DHj';
-    
-    const data = {
-        content: `**Новое предложение для музея Casa-Grande:**\n${message}`,
-        username: 'Музей Casa-Grande',
-        avatar_url: 'https://i.imgur.com/abcdefg.png'
-    };
-    return fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        }, 1000);
-    }
-
-    const serverTabButtons = document.querySelectorAll('.server-tab-button');
-    const serverTabContents = document.querySelectorAll('.server-tab-content');
-
-    serverTabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            serverTabButtons.forEach(btn => btn.classList.remove('active'));
-            serverTabContents.forEach(content => content.classList.remove('active'));
-            button.classList.add('active');
-            const server = button.getAttribute('data-server');
-            document.getElementById(`${server}-content`).classList.add('active');
         });
     });
-
-    function setupNumberTabs(container) {
-        const numberTabButtons = container.querySelectorAll('.number-tab-button');
-        const numberTabContents = container.querySelectorAll('.number-tab-content');
-
-        numberTabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                numberTabButtons.forEach(btn => btn.classList.remove('active'));
-                numberTabContents.forEach(content => content.classList.remove('active'));
-                button.classList.add('active');
-                const tab = button.getAttribute('data-tab');
-                container.querySelector(`#${container.id}-${tab}`).classList.add('active');
-            });
-        });
-    }
-
-    document.querySelectorAll('.number-content').forEach(setupNumberTabs);
-    const simkartFrames = document.querySelectorAll('.simkart-frame');
-    if (simkartFrames.length > 0) {
-        animateElements(simkartFrames);
-    }
-    const playerCards = document.querySelectorAll('.player-card');
-    if (playerCards.length > 0) {
-        animateElements(playerCards);
-    }
-    const parallaxLayers = document.querySelectorAll('.parallax-layer');
-    if (parallaxLayers.length > 0) {
-        initParallaxEffect(parallaxLayers);
-    }
-
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    if (categoryBtns.length > 0) {
-        initCategoryFilter(categoryBtns);
-    }
-
-    const suggestionForm = document.querySelector('.suggestion-form');
-    if (suggestionForm) {
-        initSuggestionForm();
-    }
 });
-
-function animateElements(elements) {
-    setTimeout(() => {
-        elements.forEach((element, index) => {
-            setTimeout(() => {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
-    }, 500);
-}
-
-function initParallaxEffect(layers) {
-    window.addEventListener('mousemove', function(e) {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-    
-        layers.forEach(layer => {
-            const speed = parseFloat(layer.getAttribute('data-speed'));
-            const xPos = x * speed * 100;
-            const yPos = y * speed * 100;
-            
-            layer.style.transform = `translate(${xPos}px, ${yPos}px)`;
-        });
-    });
-}
-
-function initCategoryFilter(buttons) {
-    buttons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const category = this.getAttribute('data-category');
-            buttons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            const playerCards = document.querySelectorAll('.player-card');
-            playerCards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-}
-
-function initSuggestionForm() {
-    const sendBtn = document.getElementById('send-suggestion');
-    const textarea = document.getElementById('suggestion-text');
-    const messageDiv = document.getElementById('form-message');
-
-    sendBtn.addEventListener('click', async function(e) {
-        e.preventDefault();
-        
-        const suggestion = textarea.value.trim();
-        
-        if (!suggestion) {
-            showMessage('Пожалуйста, введите ваше предложение', 'error');
-            return;
-        }
-        try {
-            sendBtn.disabled = true;
-            sendBtn.textContent = 'Отправка...';
-            
-            const response = await sendToDiscord(suggestion);
-            
-            if (response.ok) {
-                showMessage('Спасибо! Ваше предложение отправлено', 'success');
-                textarea.value = '';
-            } else {
-                throw new Error('Ошибка при отправке');
-            }
-        } catch (error) {
-            console.error('Ошибка:', error);
-            showMessage('Произошла ошибка при отправке', 'error');
-        } finally {
-            sendBtn.disabled = false;
-            sendBtn.textContent = 'Отправить предложение';
-        }
-    });
-    
-    function showMessage(text, type) {
-        messageDiv.textContent = text;
-        messageDiv.className = type;
-        
-        setTimeout(() => {
-            messageDiv.textContent = '';
-            messageDiv.className = '';
-        }, 5000);
-    }
-}
-
-async function sendToDiscord(message) {
-    const webhookURL = 'https://discordapp.com/api/webhooks/1389177650714509422/CJUn9REtbc9GFzfWfquRMdVjth6bMANtLWi1Rf-x8Aax6cW_fpB68Mbh5TF7wmIW8DHj';
-    
-    const data = {
-        content: `**Новое предложение для музея Casa-Grande:**\n${message}`,
-        username: 'Музей Casa-Grande',
-        avatar_url: 'https://i.imgur.com/abcdefg.png'
-    };
-    return fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    });
-}
