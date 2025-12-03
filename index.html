@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Добавлено для совместимости -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
 </head>
 <body>
     <!-- Дверной входной экран -->
@@ -157,7 +159,7 @@
                     </a>
 
                     <!-- Бизнесы -->
-                    <a href="#" class="grid-card businesses disabled-card">
+                    <a href="#" class="grid-card businesses disabled-card" onclick="return false;">
                         <div class="card-content">
                             <div class="card-icon">
                                 <i class="fas fa-store"></i>
@@ -176,7 +178,7 @@
                     </a>
 
                     <!-- Дома -->
-                    <a href="#" class="grid-card houses disabled-card">
+                    <a href="#" class="grid-card houses disabled-card" onclick="return false;">
                         <div class="card-content">
                             <div class="card-icon">
                                 <i class="fas fa-home"></i>
@@ -195,7 +197,7 @@
                     </a>
 
                     <!-- Игроки -->
-                    <a href="#" class="grid-card players disabled-card">
+                    <a href="#" class="grid-card players disabled-card" onclick="return false;">
                         <div class="card-content">
                             <div class="card-icon">
                                 <i class="fas fa-users"></i>
@@ -253,7 +255,7 @@
                     <ul>
                         <li><a href="index.html">Главная</a></li>
                         <li><a href="simkart.html">Симкарты</a></li>
-                        <li><a href="#" class="disabled">Зал славы</a></li>
+                        <li><a href="#" class="disabled" onclick="return false;">Зал славы</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -273,5 +275,30 @@
     </div>
 
     <script src="script.js"></script>
+    <!-- Добавлен скрипт для модального окна -->
+    <script>
+        // Простая обработка отключенных ссылок
+        document.querySelectorAll('.disabled, .disabled-card').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('developmentModal').style.display = 'flex';
+            });
+        });
+
+        // Закрытие модального окна
+        document.querySelectorAll('.modal-close, .modal-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('developmentModal').style.display = 'none';
+            });
+        });
+
+        // Закрытие при клике вне окна
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('developmentModal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
