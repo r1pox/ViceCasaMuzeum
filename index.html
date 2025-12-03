@@ -7,11 +7,9 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Добавлено для совместимости -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
 </head>
 <body>
-    <!-- Дверной входной экран -->
     <div class="door-entry">
         <div class="door-overlay">
             <div class="door-container">
@@ -46,8 +44,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Модальное окно "В разработке" -->
     <div class="modal" id="developmentModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -66,21 +62,15 @@
             </div>
         </div>
     </div>
-
-    <!-- Основной прелоадер -->
     <div class="preloader">
         <div class="loader"></div>
     </div>
-    
-    <!-- Основной контент -->
     <div class="main-content">
-        <!-- Анимированный фон -->
         <div class="animated-background">
             <div class="particles"></div>
             <div class="glow-effect"></div>
             <div class="grid-lines"></div>
         </div>
-
         <header>
             <div class="logo">
                 <h1><span>Vice City</span> & Casa-Grande</h1>
@@ -98,7 +88,6 @@
                 <span>Музей</span>
             </div>
         </header>
-
         <main>
             <section class="museum-hero">
                 <div class="hero-content">
@@ -133,15 +122,12 @@
                     </div>
                 </div>
             </section>
-
             <section class="sections-grid">
                 <div class="section-title">
                     <h3><i class="fas fa-box-open"></i> Коллекции музея</h3>
                     <p>Исследуйте исторические артефакты</p>
                 </div>
-                
                 <div class="grid-container">
-                    <!-- Сим-Карты -->
                     <a href="simkart.html" class="grid-card sim-cards">
                         <div class="card-content">
                             <div class="card-icon">
@@ -157,8 +143,6 @@
                         <div class="card-glow"></div>
                         <div class="card-badge">Доступно</div>
                     </a>
-
-                    <!-- Бизнесы -->
                     <a href="#" class="grid-card businesses disabled-card" onclick="return false;">
                         <div class="card-content">
                             <div class="card-icon">
@@ -176,8 +160,6 @@
                             <i class="fas fa-clock"></i> Скоро
                         </div>
                     </a>
-
-                    <!-- Дома -->
                     <a href="#" class="grid-card houses disabled-card" onclick="return false;">
                         <div class="card-content">
                             <div class="card-icon">
@@ -195,8 +177,6 @@
                             <i class="fas fa-clock"></i> Скоро
                         </div>
                     </a>
-
-                    <!-- Игроки -->
                     <a href="#" class="grid-card players disabled-card" onclick="return false;">
                         <div class="card-content">
                             <div class="card-icon">
@@ -216,89 +196,7 @@
                     </a>
                 </div>
             </section>
-
-            <section class="museum-info">
-                <div class="info-container">
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-history"></i>
-                        </div>
-                        <h4>История проектов</h4>
-                        <p>Vice City (2007-2012) и Casa-Grande (2012-2017) - легендарные сервера, определившие эпоху русского GTA:SA-MP.</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-archive"></i>
-                        </div>
-                        <h4>Коллекция музея</h4>
-                        <p>Сохраняем уникальные артефакты, сим-карты, скриншоты и воспоминания о золотой эре русского SAMP.</p>
-                    </div>
-                    <div class="info-card">
-                        <div class="info-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <h4>Сообщество</h4>
-                        <p>Создано бывшими игроками для сохранения памяти о лучших моментах и легендарных игроках.</p>
-                    </div>
-                </div>
-            </section>
         </main>
-
-        <footer>
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h5>Музей Vice City & Casa-Grande</h5>
-                    <p>Неофициальный исторический проект по сохранению памяти о легендарных серверах GTA:SA-MP.</p>
-                </div>
-                <div class="footer-section">
-                    <h5>Навигация</h5>
-                    <ul>
-                        <li><a href="index.html">Главная</a></li>
-                        <li><a href="simkart.html">Симкарты</a></li>
-                        <li><a href="#" class="disabled" onclick="return false;">Зал славы</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h5>Статистика</h5>
-                    <div class="footer-stats">
-                        <span>Активных посетителей: <strong>128</strong></span>
-                        <span>Артефактов: <strong>1,247</strong></span>
-                        <span>Дней работы: <strong>365+</strong></span>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2024 Музей Vice City & Casa-Grande. Все права на игры принадлежат Rockstar Games.</p>
-                <p class="footer-note">Это неофициальный фан-проект, не связанный с Rockstar Games.</p>
-            </div>
-        </footer>
     </div>
-
-    <script src="script.js"></script>
-    <!-- Добавлен скрипт для модального окна -->
-    <script>
-        // Простая обработка отключенных ссылок
-        document.querySelectorAll('.disabled, .disabled-card').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('developmentModal').style.display = 'flex';
-            });
-        });
-
-        // Закрытие модального окна
-        document.querySelectorAll('.modal-close, .modal-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.getElementById('developmentModal').style.display = 'none';
-            });
-        });
-
-        // Закрытие при клике вне окна
-        window.addEventListener('click', function(e) {
-            const modal = document.getElementById('developmentModal');
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>
