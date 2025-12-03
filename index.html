@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Дверной входной экран -->
     <div class="door-entry">
         <div class="door-overlay">
             <div class="door-container">
@@ -43,48 +44,176 @@
             </div>
         </div>
     </div>
-    <div class="preloader" style="display: none;">
+
+    <!-- Модальное окно "В разработке" -->
+    <div class="modal" id="developmentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-tools"></i> В разработке</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-cog fa-spin"></i>
+                </div>
+                <p>Данный раздел находится в разработке</p>
+                <p class="modal-subtext">Скоро здесь появится новая информация</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn modal-btn">Понятно</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основной прелоадер -->
+    <div class="preloader">
         <div class="loader"></div>
     </div>
-    <div class="main-content" style="display: none;">
+    
+    <!-- Основной контент -->
+    <div class="main-content">
+        <!-- Анимированный фон -->
+        <div class="animated-background">
+            <div class="particles"></div>
+            <div class="glow-effect"></div>
+            <div class="grid-lines"></div>
+        </div>
+
         <header>
             <div class="logo">
                 <h1><span>Vice City</span> & Casa-Grande</h1>
+                <p class="logo-subtitle">Исторический музей</p>
             </div>
             <nav>
                 <ul>
                     <li><a href="index.html" class="active"><i class="fas fa-home"></i> Главная</a></li>
                     <li><a href="simkart.html"><i class="fas fa-id-card"></i> Симкарты</a></li>
-                    <li><a href="players.html"><i class="fas fa-trophy"></i> Зал славы</a></li>
+                    <li><a href="#" class="disabled"><i class="fas fa-trophy"></i> Зал славы</a></li>
                 </ul>
             </nav>
+            <div class="museum-badge">
+                <i class="fas fa-landmark"></i>
+                <span>Музей</span>
+            </div>
         </header>
+
         <main>
-            <section class="hero">
+            <section class="museum-hero">
                 <div class="hero-content">
-                    <h2>Добро пожаловать в музей</h2>
-                    <p>Храним память о легендарных серверах Vice City и Casa-Grande</p>
+                    <div class="hero-text">
+                        <h2 class="hero-title">Храним легенды</h2>
+                        <p class="hero-subtitle">Память о величайших серверах GTA: San Andreas Multiplayer</p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">1000+</span>
+                                <span class="stat-label">Уникальных артефактов</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Лет истории</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">50k+</span>
+                                <span class="stat-label">Игроков</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-decoration">
+                        <div class="floating-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="floating-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="floating-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section class="features">
-                <div class="feature-card">
-                    <div class="icon-circle">
-                        <i class="fas fa-id-card"></i>
-                    </div>
-                    <h4>Симкарты</h4>
-                    <p>Коллекция легендарных номеров</p>
+
+            <section class="sections-grid">
+                <div class="section-title">
+                    <h3><i class="fas fa-box-open"></i> Коллекции музея</h3>
+                    <p>Исследуйте исторические артефакты</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon-circle">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h4>Зал славы</h4>
-                    <p>Лучшие игроки серверов</p>
+                
+                <div class="grid-container">
+                    <!-- Сим-Карты -->
+                    <a href="simkart.html" class="grid-card sim-cards">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-sim-card"></i>
+                            </div>
+                            <h4 class="card-title">Сим-Карты</h4>
+                            <p class="card-desc">Легендарные номера серверов</p>
+                            <div class="card-stats">
+                                <span><i class="fas fa-hashtag"></i> 999, 888, 777</span>
+                                <span><i class="fas fa-server"></i> 2 сервера</span>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                        <div class="card-badge">Доступно</div>
+                    </a>
+
+                    <!-- Бизнесы -->
+                    <a href="#" class="grid-card businesses disabled-card">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <h4 class="card-title">Бизнесы</h4>
+                            <p class="card-desc">Знаменитые предприятия</p>
+                            <div class="card-stats">
+                                <span><i class="fas fa-building"></i> 120+ объектов</span>
+                                <span><i class="fas fa-coins"></i> Миллионы $</span>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                        <div class="card-badge coming-soon">
+                            <i class="fas fa-clock"></i> Скоро
+                        </div>
+                    </a>
+
+                    <!-- Дома -->
+                    <a href="#" class="grid-card houses disabled-card">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h4 class="card-title">Дома</h4>
+                            <p class="card-desc">Легендарные резиденции</p>
+                            <div class="card-stats">
+                                <span><i class="fas fa-door-closed"></i> 250+ домов</span>
+                                <span><i class="fas fa-map-marker-alt"></i> Все города</span>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                        <div class="card-badge coming-soon">
+                            <i class="fas fa-clock"></i> Скоро
+                        </div>
+                    </a>
+                    <a href="#" class="grid-card players disabled-card">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 class="card-title">Игроки</h4>
+                            <p class="card-desc">Легенды сообщества</p>
+                            <div class="card-stats">
+                                <span><i class="fas fa-trophy"></i> Топ-100</span>
+                                <span><i class="fas fa-history"></i> 2007-2024</span>
+                            </div>
+                        </div>
+                        <div class="card-glow"></div>
+                        <div class="card-badge coming-soon">
+                            <i class="fas fa-clock"></i> Скоро
+                        </div>
+                    </a>
                 </div>
             </section>
         </main>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
