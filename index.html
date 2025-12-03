@@ -10,40 +10,6 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
 </head>
 <body>
-    <div class="door-entry">
-        <div class="door-overlay">
-            <div class="door-container">
-                <div class="door-frame">
-                    <div class="door-left">
-                        <div class="door-texture"></div>
-                        <div class="door-knob left-knob">
-                            <div class="knob"></div>
-                        </div>
-                        <div class="door-glow"></div>
-                    </div>
-                    <div class="door-right">
-                        <div class="door-texture"></div>
-                        <div class="door-knob right-knob">
-                            <div class="knob"></div>
-                        </div>
-                        <div class="door-glow"></div>
-                    </div>
-                </div>
-                <div class="door-handle">
-                    <div class="handle-bar"></div>
-                    <div class="handle-text">НАЖМИ, ЧТОБЫ ВОЙТИ</div>
-                </div>
-                <div class="museum-title">
-                    <h1><span>Vice City</span> & Casa-Grande</h1>
-                    <p class="museum-subtitle">ИСТОРИЧЕСКИЙ МУЗЕЙ</p>
-                </div>
-                <div class="entrance-effect">
-                    <div class="light-beam"></div>
-                    <div class="light-particles"></div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal" id="developmentModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -62,9 +28,8 @@
             </div>
         </div>
     </div>
-    <div class="preloader">
-        <div class="loader"></div>
-    </div>
+
+    <!-- Основной контент сразу виден -->
     <div class="main-content">
         <div class="animated-background">
             <div class="particles"></div>
@@ -198,5 +163,40 @@
             </section>
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.disabled, .disabled-card').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.classList.contains('disabled') || this.classList.contains('disabled-card')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        showModal();
+                    }
+                });
+            });
+            function showModal() {
+                const modal = document.getElementById('developmentModal');
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                }, 10);
+            }
+            function hideModal() {
+                const modal = document.getElementById('developmentModal');
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            }
+            document.querySelectorAll('.modal-close, .modal-btn').forEach(button => {
+                button.addEventListener('click', hideModal);
+            });
+            document.getElementById('developmentModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideModal();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
