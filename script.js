@@ -12,39 +12,58 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Инициализация
     function init() {
+        console.log('Инициализация страницы...');
+        
         // Скрываем основной контент изначально
-        mainContent.style.display = 'none';
+        if (mainContent) {
+            mainContent.style.display = 'none';
+            mainContent.style.opacity = '0';
+        }
         
         // Показываем прелоадер
-        preloader.style.display = 'flex';
+        if (preloader) {
+            preloader.style.display = 'flex';
+            preloader.style.opacity = '1';
+        }
         
         // Устанавливаем обработчики событий
         setupDoor();
         setupModal();
         setupDisabledCards();
+        
+        console.log('Инициализация завершена');
     }
 
     // Настройка двери
     function setupDoor() {
+        if (!doorFrame) {
+            console.error('Элемент .door-frame не найден');
+            return;
+        }
+        
         doorFrame.addEventListener('click', openDoor);
         
         // Также можно открывать дверь по нажатию любой клавиши
         document.addEventListener('keydown', function(e) {
-            if (doorEntry.style.display !== 'none') {
+            if (doorEntry && doorEntry.style.display !== 'none') {
                 openDoor();
             }
         });
+        
+        console.log('Дверь настроена');
     }
 
     // Функция открытия двери
     function openDoor() {
+        console.log('Открытие двери...');
+        
         // Добавляем класс для анимации
         doorEntry.classList.add('door-opening');
         
         // Запускаем звук открытия двери (опционально)
         playDoorSound();
         
-        // Через 1 секунду показываем прелоадер
+        // Через 1 секунду начинаем скрывать дверь
         setTimeout(() => {
             doorEntry.style.opacity = '0';
             
@@ -53,26 +72,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 doorEntry.style.display = 'none';
                 
                 // Показываем основной контент
-                mainContent.style.display = 'block';
+                if (mainContent) {
+                    mainContent.style.display = 'block';
+                    
+                    // Даем время для отрисовки
+                    setTimeout(() => {
+                        mainContent.style.opacity = '1';
+                    }, 50);
+                }
                 
                 // Скрываем прелоадер
-                setTimeout(() => {
-                    preloader.style.opacity = '0';
+                if (preloader) {
                     setTimeout(() => {
-                        preloader.style.display = 'none';
-                        
-                        // Анимируем появление контента
+                        preloader.style.opacity = '0';
                         setTimeout(() => {
-                            mainContent.style.opacity = '1';
-                        }, 100);
-                    }, 500);
-                }, 1000);
+                            preloader.style.display = 'none';
+                        }, 500);
+                    }, 1000);
+                }
+                
+                // Инициализируем анимации контента
+                setTimeout(() => {
+                    initContentAnimations();
+                }, 1500);
+                
             }, 500);
         }, 1200);
     }
 
     // Настройка модального окна
     function setupModal() {
+        if (!modal) {
+            console.warn('Модальное окно не найдено');
+            return;
+        }
+        
         modalCloseButtons.forEach(button => {
             button.addEventListener('click', closeModal);
         });
@@ -83,22 +117,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeModal();
             }
         });
+        
+        console.log('Модальное окно настроено');
     }
 
     // Показ модального окна
     function showModal() {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
     }
 
     // Закрытие модального окна
     function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     }
 
     // Настройка отключенных карточек
     function setupDisabledCards() {
+        if (disabledCards.length === 0) {
+            console.warn('Отключенные карточки не найдены');
+            return;
+        }
+        
         disabledCards.forEach(card => {
             card.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -106,6 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 showModal();
             });
         });
+        
+        console.log('Отключенные карточки настроены: ' + disabledCards.length);
     }
 
     // Функция для воспроизведения звука
@@ -127,14 +174,38 @@ document.addEventListener('DOMContentLoaded', function() {
             
             oscillator.start();
             oscillator.stop(audioContext.currentTime + 1.2);
+            
+            console.log('Звук двери воспроизведен');
         } catch (e) {
-            console.log('Audio context not supported');
+            console.log('Audio context не поддерживается');
         }
     }
 
-    // Инициализация анимированных иконок
+    // Инициализация анимаций контента
+    function initContentAnimations() {
+        console.log('Инициализация анимаций контента...');
+        
+        // Анимация плавающих иконок
+        initFloatingIcons();
+        
+        // Анимация карточек
+        animateCards();
+        
+        // Анимация статистики
+        animateStats();
+        
+        // Эффект параллакса для фона
+        initParallaxEffect();
+        
+        // Анимация свечения при наведении на карточки
+        initHoverEffects();
+    }
+
+    // Инициализация плавающих иконок
     function initFloatingIcons() {
         const icons = document.querySelectorAll('.floating-icon');
+        console.log('Плавающие иконки найдены: ' + icons.length);
+        
         icons.forEach((icon, index) => {
             icon.style.animationDelay = `${index * 2}s`;
         });
@@ -143,6 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Анимация появления карточек
     function animateCards() {
         const cards = document.querySelectorAll('.grid-card');
+        console.log('Карточки для анимации: ' + cards.length);
+        
         cards.forEach((card, index) => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
@@ -155,35 +228,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Инициализация при загрузке
-    init();
-    initFloatingIcons();
-
-    // Анимация карточек после загрузки контента
-    setTimeout(animateCards, 1500);
-
-    // Эффект параллакса для фона
-    window.addEventListener('mousemove', function(e) {
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        
-        const particles = document.querySelector('.particles');
-        if (particles) {
-            particles.style.transform = `translate(${x}px, ${y}px)`;
-        }
-    });
-
-    // Анимация для статистики в футере
+    // Анимация для статистики
     function animateStats() {
         const stats = document.querySelectorAll('.stat-number');
+        console.log('Элементы статистики: ' + stats.length);
+        
         stats.forEach(stat => {
-            const target = parseInt(stat.textContent);
+            const text = stat.textContent;
+            const target = parseInt(text);
+            
+            if (isNaN(target)) return;
+            
             let current = 0;
             const increment = target / 50;
             const timer = setInterval(() => {
                 current += increment;
                 if (current >= target) {
-                    stat.textContent = target + '+';
+                    stat.textContent = text; // Возвращаем оригинальный текст с +
                     clearInterval(timer);
                 } else {
                     stat.textContent = Math.floor(current) + '+';
@@ -192,21 +253,54 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Запуск анимации статистики
-    setTimeout(animateStats, 2000);
-
-    // Анимация свечения при наведении на карточки
-    const gridCards = document.querySelectorAll('.grid-card:not(.disabled-card)');
-    gridCards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+    // Эффект параллакса для фона
+    function initParallaxEffect() {
+        window.addEventListener('mousemove', function(e) {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
             
-            const glow = this.querySelector('.card-glow');
-            if (glow) {
-                glow.style.background = `radial-gradient(circle at ${x}px ${y}px, transparent 30%, var(--primary-glow) 70%, transparent 100%)`;
+            const particles = document.querySelector('.particles');
+            if (particles) {
+                particles.style.transform = `translate(${x}px, ${y}px)`;
             }
         });
-    });
+    }
+
+    // Анимация свечения при наведении на карточки
+    function initHoverEffects() {
+        const gridCards = document.querySelectorAll('.grid-card:not(.disabled-card)');
+        
+        gridCards.forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const glow = this.querySelector('.card-glow');
+                if (glow) {
+                    glow.style.background = `radial-gradient(circle at ${x}px ${y}px, transparent 30%, rgba(212, 175, 55, 0.3) 70%, transparent 100%)`;
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const glow = this.querySelector('.card-glow');
+                if (glow) {
+                    glow.style.background = 'radial-gradient(circle at center, transparent 30%, rgba(212, 175, 55, 0.3) 70%, transparent 100%)';
+                }
+            });
+        });
+    }
+
+    // Инициализация при загрузке
+    console.log('DOM загружен');
+    init();
+    
+    // Отладка: выводим список найденных элементов
+    console.log('Найденные элементы:');
+    console.log('- door-entry:', document.querySelector('.door-entry'));
+    console.log('- door-frame:', doorFrame);
+    console.log('- main-content:', mainContent);
+    console.log('- preloader:', preloader);
+    console.log('- modal:', modal);
+    console.log('- disabled-cards:', disabledCards.length);
 });
