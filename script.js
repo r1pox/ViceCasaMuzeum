@@ -253,6 +253,104 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Оптимизированный script.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Быстрая инициализация
+    const doorEntry = document.querySelector('.door-entry');
+    const doorFrame = document.querySelector('.door-frame');
+    const preloader = document.querySelector('.preloader');
+    const mainContent = document.querySelector('.main-content');
+    
+    // Функция для быстрого открытия
+    function quickOpen() {
+        // Сразу скрываем дверь
+        doorEntry.style.opacity = '0';
+        doorEntry.style.transition = 'opacity 0.3s ease';
+        
+        setTimeout(() => {
+            doorEntry.style.display = 'none';
+            preloader.style.display = 'flex';
+            
+            // Быстрая загрузка - всего 1 секунда
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    
+                    // Загружаем остальные стили лениво
+                    setTimeout(() => {
+                        mainContent.style.opacity = '1';
+                        loadLazyStyles();
+                        initAnimations();
+                    }, 10);
+                }, 300);
+            }, 1000);
+        }, 300);
+    }
+    
+    // Обработчик клика
+    if (doorFrame) {
+        doorFrame.addEventListener('click', quickOpen);
+        
+        // Автоматическое открытие через 5 секунд
+        setTimeout(() => {
+            if (doorEntry.style.display !== 'none') {
+                quickOpen();
+            }
+        }, 5000);
+    }
+    
+    // Функция ленивой загрузки стилей
+    function loadLazyStyles() {
+        // Создаем стиль для анимаций и эффектов
+        const lazyStyles = `
+            /* Анимации для дверей */
+            .door-left { transform: rotateY(-120deg); }
+            .door-right { transform: rotateY(120deg); }
+            
+            /* Более сложные эффекты */
+            .door-overlay {
+                background: radial-gradient(circle at 50% 50%, rgba(20,20,20,0.9) 0%, #000 70%),
+                           repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(40,40,40,0.1) 2px, rgba(40,40,40,0.1) 4px);
+            }
+            
+            /* Парящие иконки */
+            .floating-icon {
+                animation: float 6s infinite ease-in-out;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0) rotate(0deg); }
+                50% { transform: translateY(-10px) rotate(5deg); }
+            }
+        `;
+        
+        // Добавляем стили в документ
+        const style = document.createElement('style');
+        style.textContent = lazyStyles;
+        document.head.appendChild(style);
+    }
+    
+    // Инициализация анимаций после загрузки
+    function initAnimations() {
+        // Простые обработчики для модального окна
+        document.querySelectorAll('.disabled, .disabled-card').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('developmentModal').style.display = 'flex';
+            });
+        });
+        
+        // Закрытие модального окна
+        document.querySelectorAll('.modal-close, .modal-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('developmentModal').style.display = 'none';
+            });
+        });
+    }
+});
+
     // Эффект параллакса для фона
     function initParallaxEffect() {
         window.addEventListener('mousemove', function(e) {
