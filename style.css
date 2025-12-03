@@ -1,4 +1,3 @@
-/* ===== CRITICAL CSS - Загружается первым ===== */
 :root {
   --bg-dark: #0a0a0a;
   --bg-darker: #050505;
@@ -8,7 +7,6 @@
   --border: #333333;
 }
 
-/* Самые важные стили, которые нужны сразу */
 * {
   margin: 0;
   padding: 0;
@@ -23,7 +21,6 @@ body {
   position: relative;
 }
 
-/* Дверной экран - только базовые стили */
 .door-entry {
   position: fixed;
   top: 0;
@@ -48,7 +45,6 @@ body {
   overflow: hidden;
 }
 
-/* Простой прелоадер */
 .preloader {
   position: fixed;
   top: 0;
@@ -75,17 +71,12 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* Основной контент - скрыт по умолчанию */
 .main-content {
   display: none;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* ===== LAZY-LOAD CSS - Загружается после ===== */
-/* Эта часть будет загружена отдельно через JavaScript */
-
-/* Переменные для остальных стилей */
 :root {
   --bg-matte: #111111;
   --bg-card-hover: #222222;
@@ -110,7 +101,6 @@ body {
   --overlay: rgba(0, 0, 0, 0.8);
 }
 
-/* Остальные стили - будут применены позже */
 .door-overlay {
   position: absolute;
   top: 0;
@@ -150,7 +140,6 @@ body {
   50% { opacity: 1; }
 }
 
-/* Анимированный фон - упрощенный */
 .animated-background {
   position: fixed;
   top: 0;
@@ -162,7 +151,6 @@ body {
   overflow: hidden;
 }
 
-/* Упрощенные сетевые линии (меньше нагрузки) */
 .grid-lines {
   position: absolute;
   top: 0;
@@ -175,7 +163,6 @@ body {
   opacity: 0.3;
 }
 
-/* HEADER - упрощенный */
 header {
   background: rgba(10, 10, 10, 0.95);
   padding: 1rem 2rem;
@@ -196,7 +183,6 @@ header {
   color: transparent;
 }
 
-/* HERO - оптимизированный */
 .museum-hero {
   padding: 3rem 2rem;
 }
@@ -212,7 +198,6 @@ header {
   opacity: 0.8;
 }
 
-/* GRID CARDS - без лишних эффектов */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -236,14 +221,12 @@ header {
   border-color: var(--primary);
 }
 
-/* FOOTER - упрощенный */
 footer {
   background: var(--bg-darker);
   padding: 2rem 0 1rem;
   margin-top: 3rem;
 }
 
-/* MODAL - базовый */
 .modal {
   position: fixed;
   top: 0;
@@ -257,7 +240,6 @@ footer {
   z-index: 1000;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .door-frame {
     width: 300px;
